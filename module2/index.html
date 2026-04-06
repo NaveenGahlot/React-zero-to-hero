@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Module</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+    }
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+    }
+    h2 {
+        color: #2980b9;
+    }
+    #grandParent, #parent, #child, #sibling {
+        border: 1px solid #bdc3c7;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #ecf0f1;
+    }
+    #menu {
+        list-style-type: none;
+        padding: 0;
+    }
+</style>
+<body>
+    <h1>JavaScript.. !</h1>
+    <div id="grandParent">
+        <h2>grandParent</h2>
+        <div id="parent">
+            <h2>Parent</h2>
+            <p>This is the parent element.</p>
+            <div id="child">
+                <h2>Child</h2>
+                <p>This is the child element.</p>
+            </div>
+        </div>
+        <div id="sibling">
+            <h2>Sibling</h2>
+            <p>This is the sibling element.</p>
+        </div>
+    </div>
+    <ul id="menu">
+        <li>Home</li>
+        <li>About</li>
+        <li>Contact</li>
+        <li>Services</li>
+        <li>Blog</li>
+    </ul>
+</body>
+<script src="leture20.js"></script>
+</html>
