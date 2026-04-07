@@ -1,0 +1,18 @@
+nav{
+    border-bottom: 1px solid black;
+}
+
+.navbar_list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none; 
+}
+.navbar_list a{
+    margin: 5px 10px;
+}
+
+.navbar_list a.active{
+    font-weight: bold;
+    text-decoration: underline;
+}
