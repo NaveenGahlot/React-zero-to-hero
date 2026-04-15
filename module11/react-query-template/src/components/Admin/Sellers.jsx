@@ -11,13 +11,7 @@ const Sellers = () => {
   // const [loading, setLoading] = useState(false);
 
   // const fetchUsers = () => apiClient.get('/users').then((res) => res.data);
-  const { data: users, error, isLoading } =  useUsers();
-
-  // useEffect(() => {
-  //   if (fetchedUsers.length > 0) {
-  //     setUsers(fetchedUsers);
-  //   }
-  // }, [fetchedUsers]);
+  const { data: users, error, isLoading } =  useUsers(); 
 
   const addUser = () => {
     const trimmedName = name.trim();
