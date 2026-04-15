@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+// import React, { useEffect, useState } from 'react';
+// import { useQuery } from '@tanstack/react-query';
 import apiClient from '../../utils/api-client';
+import useUsers from '../../hooks/useUsers';
 // import lodash from 'lodash';
 
 const Sellers = () => {
@@ -9,11 +10,8 @@ const Sellers = () => {
   // const [error, setError] = useState(null);
   // const [loading, setLoading] = useState(false);
 
-  const fetchUsers = () => apiClient.get('/users').then((res) => res.data);
-  const { data: users, error, isLoading } = useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
-  });
+  // const fetchUsers = () => apiClient.get('/users').then((res) => res.data);
+  const { data: users, error, isLoading } =  useUsers();
 
   // useEffect(() => {
   //   if (fetchedUsers.length > 0) {
