@@ -12,7 +12,7 @@ const queryClient = new QueryClient({
       gcTime: 1000 * 60 * 5, // 5 minutes
       cacheTime: 1000 * 60 * 10, // 10 minutes
       retry: 3,
-      staleTime:  Infinity,
+      staleTime:  3 * 1000, // 3 seconds
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
