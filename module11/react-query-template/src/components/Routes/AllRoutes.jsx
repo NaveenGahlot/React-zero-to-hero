@@ -9,6 +9,7 @@ import NotFound from "../NotFound/NotFound";
 import SingleProduct from "../Products/SingleProduct"; 
 import Sales from "../Admin/Seles";
 import Sellers from "../Admin/Sellers"; 
+import User from '../Admin/User';
 
 const AllRoutes = () => {
   return ( 
@@ -20,6 +21,7 @@ const AllRoutes = () => {
             <Route path="/admin" element={<Admin />}>
               <Route path="sales" element={<Sales />} />
               <Route path="sellers" element={<Sellers />} />
+              <Route path="users" element={<User />} />
             </Route>
             <Route path="/contact" element={<Contact/>} />
             <Route path="*" element={<NotFound />} />
