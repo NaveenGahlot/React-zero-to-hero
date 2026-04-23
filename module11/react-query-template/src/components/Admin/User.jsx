@@ -7,7 +7,7 @@ const User = () => {
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const totalItems = 200; // Assuming there are 200 todos in total
-   const totalPages = Math.ceil(totalItems / pageSize); 
+  const totalPages = Math.ceil(totalItems / pageSize); 
 
 
   const { data: todos, error, isLoading } = useFetchUsers(page, pageSize);
@@ -25,6 +25,18 @@ const User = () => {
       >
         Previous
       </button>
+      <div>
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => setPage(index + 1)}
+            disabled={page === index + 1}
+            style={{fontWeight: page === index + 1 ? "bold" : "normal", margin: "0 5px", padding: "5px 10px" }}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
       <button
         onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
         disabled={page === totalPages}
