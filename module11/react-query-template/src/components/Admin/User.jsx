@@ -4,22 +4,31 @@ import Loader from "../common/Loader";
 import useFetchUsers from '../../hooks/useFetchUsers';
 
 const User = () => {
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   const pageSize = 10;
-  const totalItems = 200; // Assuming there are 200 todos in total
-  const totalPages = Math.ceil(totalItems / pageSize); 
+  // const totalItems = 200; // Assuming there are 200 todos in total
+  // const totalPages = Math.ceil(totalItems / pageSize); 
 
 
-  const { data: todos, error, isLoading } = useFetchUsers(page, pageSize);
+  const { data, error, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useFetchUsers({pageSize});
   return (
     <>
       <h3>Users Page</h3>
       {isLoading && <Loader />}
       {error && <em>{error.message}</em>}
-      {todos?.map((todo) => (
-        <p key={todo.id}>{todo.title}</p>
+      {data?.pages.map((page, pageIndex) => (
+        <React.Fragment key={pageIndex}>
+          {page.map((todo) => (
+            <p key={todo.id}>{todo.title}</p>
+          ))}
+        </React.Fragment>
       ))}
-      <button
+
+      <button onClick={fetchNextPage} disabled={!hasNextPage || isFetchingNextPage}>
+        {isFetchingNextPage ? "Loading..." : "See more"}
+      </button>
+
+      {/* <button
         onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
         disabled={page === 1}
       >
@@ -42,7 +51,7 @@ const User = () => {
         disabled={page === totalPages}
       >
         Next
-      </button>
+      </button> */}
     </>
   )
 }
