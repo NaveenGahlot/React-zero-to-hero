@@ -2,66 +2,60 @@
 // import { useQuery } from '@tanstack/react-query';
 import apiClient from '../../utils/api-client';
 import useUsers from '../../hooks/useUsers';
-// import lodash from 'lodash';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const Sellers = () => {
-  // const [users, setUsers] = useState([]);
-  // const [name, setName] = useState('');
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const { data: users = [], error, isLoading } = useUsers();
+  const [name, setName] = useState('');
+  const [mutationError, setMutationError] = useState(null);
 
-  // const fetchUsers = () => apiClient.get('/users').then((res) => res.data);
-  const { data: users, error, isLoading } =  useUsers(); 
+  const addUserMutation = useMutation({
+    mutationFn: (newUser) => apiClient.post('/users', newUser).then((res) => res.data),
+    onSuccess: (createdUser) => {
+      queryClient.setQueryData(['users'], (oldUsers = []) => [createdUser, ...oldUsers]);
+      setName('');
+      setMutationError(null);
+    },
+    onError: (err) => {
+      setMutationError(err.message);
+    },
+  });
+
+  const deleteUserMutation = useMutation({
+    mutationFn: (id) => apiClient.delete(`/users/${id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['users'] }),
+    onError: (err) => setMutationError(err.message),
+  });
+
+  const updateUserMutation = useMutation({
+    mutationFn: (updatedUser) => apiClient.patch(`/users/${updatedUser.id}`, updatedUser),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['users'] }),
+    onError: (err) => setMutationError(err.message),
+  });
 
   const addUser = () => {
     const trimmedName = name.trim();
     if (!trimmedName) return;
 
-    const nextId = users.length > 0 ? Math.max(...users.map((u) => u.id)) + 1 : 1;
     const newUser = {
       name: trimmedName,
-      id: nextId,
     };
-
-    setUsers([newUser, ...users]);
-    apiClient
-      .post('/users', newUser)
-      .then((response) => {
-        setUsers([response.data, ...users]);
-      })
-      .catch((apiError) => {
-        console.error('Error adding user:', apiError);
-        setError('Failed to add user. Please try again.');
-        setUsers(users);
-      });
+    addUserMutation.mutate(newUser);
   };
 
   const deleteUser = (id) => {
-    setUsers(users.filter((u) => u.id !== id));
-    apiClient.delete(`/users/${id}`).catch((err) => {
-      setError(err.message);
-      setUsers(users);
-    });
+    deleteUserMutation.mutate(id);
   };
 
-  const updateUser = async (user) => {
+  const updateUser = (user) => {
     const updatedUser = {
       ...user,
       name: `${user.name} Update`,
     };
-
-    try {
-      setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
-      await apiClient.patch(`/users/${user.id}`, updatedUser);
-    } catch (err) {
-      setError(err.message);
-      setUsers(users);
-    }
+    updateUserMutation.mutate(updatedUser);
   };
-
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
 
   return (
     <div>
@@ -69,7 +63,7 @@ const Sellers = () => {
       <input type="text" onChange={(e) => setName(e.target.value)} value={name} />
       <button onClick={addUser}>Add User</button>
       {isLoading && <p>Loading...</p>}
-      {error && <em>{error.message}</em>}
+      {(error || mutationError) && <em>{error?.message || mutationError}</em>}
       <table>
         <tbody>
           {users?.map((user) => (
