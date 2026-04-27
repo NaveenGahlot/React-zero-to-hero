@@ -24,8 +24,11 @@ const Sellers = () => {
   });
 
   const deleteUserMutation = useMutation({
-    mutationFn: (id) => apiClient.delete(`/users/${id}`),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['users'] }),
+    mutationFn: (id) => apiClient.delete(`/users/${id}`).then((res)=> res.data),
+    onSuccess: (_, id) => {
+      queryClient.setQueryData(['users'], (oldUsers = []) => oldUsers.filter((user) => user.id !== id));
+      setMutationError(null);
+    },
     onError: (err) => setMutationError(err.message),
   });
 
