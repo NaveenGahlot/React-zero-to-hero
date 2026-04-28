@@ -33,8 +33,8 @@ const Sellers = () => {
   });
 
   const updateUserMutation = useMutation({
-    mutationFn: (updatedUser) => apiClient.patch(`/users/${updatedUser.id}`, updatedUser),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['users'] }),
+    mutationFn: (updatedUser) => apiClient.patch(`/users/${updatedUser.id}`, updatedUser).then((res) => res.data),
+    onSuccess: (updateUser) => queryClient.setQueriesData( ['users'] , (oldUsers = []) => oldUsers.map((user) => (user.id === updateUser.id ? updateUser : user)) ),
     onError: (err) => setMutationError(err.message),
   });
 
