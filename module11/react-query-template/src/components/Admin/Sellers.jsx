@@ -66,7 +66,11 @@ const Sellers = () => {
       <input type="text" onChange={(e) => setName(e.target.value)} value={name} />
       <button onClick={addUser}>Add User</button>
       {isLoading && <p>Loading...</p>}
-      {(error || mutationError) && <em>{error?.message || mutationError}</em>}
+      {/* //{(error || mutationError) && <em>{error?.message || mutationError}</em>} */}
+      {error && <em>{error.message}</em>}
+      {addUserMutation.error && <em>{addUserMutation.error.message}</em>}
+      {deleteUserMutation.error && <em>{deleteUserMutation.error.message}</em>}
+      {updateUserMutation.error && <em>{updateUserMutation.error.message}</em>}
       <table>
         <tbody>
           {users?.map((user) => (
