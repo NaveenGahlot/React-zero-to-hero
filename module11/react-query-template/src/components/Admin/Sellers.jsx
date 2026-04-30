@@ -64,8 +64,9 @@ const Sellers = () => {
     <div>
       <h1>Sellers component</h1>
       <input type="text" onChange={(e) => setName(e.target.value)} value={name} />
-      <button onClick={addUser}>Add User</button>
+      <button onClick={addUser} disabled={addUserMutation.isPending}>{addUserMutation.isPending ? "Adding User..." : "Add User"}</button>
       {isLoading && <p>Loading...</p>}
+      {addUserMutation.isPending && <p>Loading...</p>}
       {/* //{(error || mutationError) && <em>{error?.message || mutationError}</em>} */}
       {error && <em>{error.message}</em>}
       {addUserMutation.error && <em>{addUserMutation.error.message}</em>}
