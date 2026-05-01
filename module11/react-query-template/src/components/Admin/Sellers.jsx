@@ -13,14 +13,26 @@ const Sellers = () => {
 
   const addUserMutation = useMutation({
     mutationFn: (newUser) => apiClient.post('/users', newUser).then((res) => res.data),
-    onSuccess: (createdUser) => {
-      queryClient.setQueryData(['users'], (oldUsers = []) => [createdUser, ...oldUsers]);
+    onSuccess: (createdUser, newUser) => {
+      const previousData = queryClient.getQueryData(['users']);
+      queryClient.setQueryData(['users'], (users)=> users.map((user)=> (user === newUser ? createdUser : user)));
       setName('');
-      setMutationError(null);
+      setMutationError(null); 
+      return { previousData };
     },
-    onError: (err) => {
+    onMutate:(newUser)=>{
+      queryClient.setQueryData(['users'], (oldUsers = []) => [newUser, ...oldUsers]);
+      },
+    onError: (err, newUser, context) => {
+      if(!context){
+        return;
+      }
+      queryClient.setQueryData(['users'], context.previousData);
       setMutationError(err.message);
     },
+    onSettled: () => {
+      queryClient.invalidateQueries(['users']);
+    }
   });
 
   const deleteUserMutation = useMutation({
