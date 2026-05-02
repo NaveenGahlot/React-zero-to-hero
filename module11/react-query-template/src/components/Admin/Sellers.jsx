@@ -4,36 +4,14 @@ import apiClient from '../../utils/api-client';
 import useUsers from '../../hooks/useUsers';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import useAddUser from '../../hooks/users/useAddUser';
 
 const Sellers = () => {
-  const queryClient = useQueryClient();
   const { data: users = [], error, isLoading } = useUsers();
   const [name, setName] = useState('');
   const [mutationError, setMutationError] = useState(null);
 
-  const addUserMutation = useMutation({
-    mutationFn: (newUser) => apiClient.post('/users', newUser).then((res) => res.data),
-    onSuccess: (createdUser, newUser) => {
-      const previousData = queryClient.getQueryData(['users']);
-      queryClient.setQueryData(['users'], (users)=> users.map((user)=> (user === newUser ? createdUser : user)));
-      setName('');
-      setMutationError(null); 
-      return { previousData };
-    },
-    onMutate:(newUser)=>{
-      queryClient.setQueryData(['users'], (oldUsers = []) => [newUser, ...oldUsers]);
-      },
-    onError: (err, newUser, context) => {
-      if(!context){
-        return;
-      }
-      queryClient.setQueryData(['users'], context.previousData);
-      setMutationError(err.message);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(['users']);
-    }
-  });
+  const addUserMutation = useAddUser(setName);
 
   const deleteUserMutation = useMutation({
     mutationFn: (id) => apiClient.delete(`/users/${id}`).then((res)=> res.data),
