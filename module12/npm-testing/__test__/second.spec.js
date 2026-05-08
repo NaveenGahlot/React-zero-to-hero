@@ -16,6 +16,7 @@ afterEach(()=>{
 
 beforeAll(()=>{
   console.log("Running before all tests");
+  user = []; // Initializing the user array before all tests
 })
 
 afterAll(()=>{
@@ -38,3 +39,15 @@ test('should add two numbers correctly', () => {
   expect(addOne(3)).toBe(4);
   console.log("Second test completed");
 });
+
+test("should add a user to the array", () => {
+  user.push("John");
+  expect(user.length).toBe(1);
+  expect(user[0]).toBe("John");
+  console.log("Third test completed");
+});
+
+test("should not retain previous users", ()=>{
+  expect(user.length).toBe(1); // This will fail because user is not defined in this scope
+  console.log("Fourth test completed");
+})
