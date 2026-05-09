@@ -16,4 +16,9 @@ describe("User Test cases", ()=>{
     expect(4).toBe(4);
     console.log("Fourth test completed");
 }, 40000);
+test.only("Async Response", async()=>{
+    await new Promise(resolve => setTimeout(resolve, 15000)); // Simulating an async operation with a 5-second delay
+    expect(true).toBe(true);
+    console.log("Async test completed");
+})
 })
