@@ -1,4 +1,4 @@
-myVal = 4;
+let myVal = 4;
 let name = "John Doe";
 let animals = ["cat", "dog", "rabbit"];
 
