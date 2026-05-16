@@ -6,7 +6,8 @@ function App() {
   return (
     <>
       <div>
-          <h1>React Testing</h1>
+          <h1 data-testid="heading">React Testing</h1>
+          <button onClick={()=>{console.log("click console.log")}}>Click me</button>
       </div>
     </>
   )
