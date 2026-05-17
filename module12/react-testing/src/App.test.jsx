@@ -4,6 +4,7 @@ import App from "./App"
 import { expect } from "vitest"
 
 test("App Component Should Display React Testing", () => {
+  let myText = "dfas"
   const { getByText, debug, getByTestId, getByRole } = render(<App />) 
   debug()
   const headingElement = getByTestId(/heading/i) 
@@ -13,4 +14,9 @@ test("App Component Should Display React Testing", () => {
 
   let btn = getByRole("button")
   fireEvent.click(btn)
+
+  let MyInput = getByRole("textbox")
+  expect(MyInput).toHaveValue("")
+  fireEvent.change(MyInput, { target: { value: myText } })
+  expect(MyInput).toHaveValue(myText)
 })
