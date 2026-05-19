@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Login Component Snapshort for Login Component 1`] = `
+<DocumentFragment>
+  <form
+    class=""
+    novalidate=""
+  >
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicEmail"
+      >
+        Email
+      </label>
+      <input
+        class="form-control"
+        id="formBasicEmail"
+        placeholder="Enter email"
+        type="email"
+        value=""
+      />
+    </div>
+    <div
+      class="mb-3"
+    >
+      <label
+        class="form-label"
+        for="formBasicPassword"
+      >
+        Password
+      </label>
+      <input
+        class="form-control"
+        id="formBasicPassword"
+        placeholder="Password"
+        type="password"
+        value=""
+      />
+    </div>
+    <button
+      class="btn btn-primary"
+      data-testid="submit"
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      class="btn btn-secondary"
+      data-testid="reset"
+      style="margin-left: 5px;"
+      type="button"
+    >
+      Reset
+    </button>
+  </form>
+</DocumentFragment>
+`;
