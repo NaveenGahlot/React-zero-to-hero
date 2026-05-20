@@ -28,10 +28,10 @@ describe("Test Login Component", () => {
     userEvent.type(email, "ajay.suneja");
     expect(email.value).not.toMatch("ajay.suneja25@gmail.com");
   });
-  // test("password input should have type Password", () => {
-  //   const password = screen.getByPlaceholderText("Password");
-  //   expect(password).toHaveAttribute("type", "password");
-  // });
+  test("password input should have type Password", () => {
+    const password = screen.getByPlaceholderText("Password");
+    expect(password).toHaveAttribute("type", "password");
+  });
   // test("should able to reset form", () => {
   //   const resetbtn = screen.getByTestId("reset");
   //   const email = screen.getByPlaceholderText("Enter email");
