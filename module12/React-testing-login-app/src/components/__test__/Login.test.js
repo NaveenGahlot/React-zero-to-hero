@@ -32,26 +32,26 @@ describe("Test Login Component", () => {
     const password = screen.getByPlaceholderText("Password");
     expect(password).toHaveAttribute("type", "password");
   });
-  // test("should able to reset form", () => {
-  //   const resetbtn = screen.getByTestId("reset");
-  //   const email = screen.getByPlaceholderText("Enter email");
-  //   const password = screen.getByPlaceholderText("Password");
-  //   userEvent.type(email, "ajay.suneja@gmail.com");
-  //   userEvent.type(password, "123");
-  //   fireEvent.click(resetbtn);
-  //   expect(email.value).toMatch("");
-  //   expect(password.value).toMatch("");
-  // });
-  // test("should able to submit form for success case", () => {
-  //   const submitbtn = screen.getByTestId("submit");
-  //   const email = screen.getByPlaceholderText("Enter email");
-  //   const password = screen.getByPlaceholderText("Password");
-  //   userEvent.type(email, "ajay.suneja@gmail.com");
-  //   userEvent.type(password, "123");
-  //   fireEvent.click(submitbtn);
-  //   const userInfo = screen.getByText("ajay.suneja@gmail.com");
-  //   expect(userInfo).toBeInTheDocument();
-  // });
+  test("should able to reset form", () => {
+    const resetbtn = screen.getByTestId("reset");
+    const email = screen.getByPlaceholderText("Enter email");
+    const password = screen.getByPlaceholderText("Password");
+    userEvent.type(email, "ajay.suneja@gmail.com");
+    userEvent.type(password, "123");
+    fireEvent.click(resetbtn);
+    expect(email.value).toMatch("");
+    expect(password.value).toMatch("");
+  });
+  test("should able to submit form for success case", () => {
+    const submitbtn = screen.getByTestId("submit");
+    const email = screen.getByPlaceholderText("Enter email");
+    const password = screen.getByPlaceholderText("Password");
+    userEvent.type(email, "ajay.suneja@gmail.com");
+    userEvent.type(password, "123");
+    fireEvent.click(submitbtn);
+    const userInfo = screen.getByText("ajay.suneja@gmail.com");
+    expect(userInfo).toBeInTheDocument();
+  });
   // test("should able to submit form for Error case", () => {
   //   const submitbtn = screen.getByTestId("submit");
   //   const email = screen.getByPlaceholderText("Enter email");
