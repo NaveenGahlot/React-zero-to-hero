@@ -22,7 +22,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
     },
     devServer: {
         static: {
@@ -32,6 +32,16 @@ module.exports = {
         open: true,
         port: 8080,
         hot: true
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
+    performance: {
+        hints: process.env.NODE_ENV === 'production' ? 'warning' : false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000,
     },
     plugins: [new HtmlWebpackPlugin()],
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
