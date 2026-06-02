@@ -38,3 +38,58 @@ function add(a: number, b?: number){
 }
 console.log(add(5)); // Output: 5
 console.log(add(5, 10)); // Output: 15
+
+// interface
+interface Person{
+    name: string;
+    id: number;
+    age: number;
+}
+let person1: Person = {
+    name: "Vijay",
+    id: 1,
+    age: 25
+};
+console.log(person1);
+
+const user: Record<string, number> = {
+    "Alice": 30,
+    "Bob": 25,
+    "Charlie": 35
+};
+console.log(user);
+
+interface Student {
+    name: string;
+    age: number;
+    grade: string;
+}
+type StudentRecord = Record<string, Student>;
+const students: StudentRecord = {
+    "student1": { name: "Alice", age: 20, grade: "A" },
+    "student2": { name: "Bob", age: 22, grade: "B" },
+    "student3": { name: "Charlie", age: 21, grade: "A" }
+};
+console.log(students);
+
+// union & intersection
+let person2: Person | Student;
+person2 = {
+    name: "Sanjay",
+    id: 2,
+    age: 28,
+    grade: "A"
+};
+console.log(person2);
+
+// type alais 
+type count = string | number;
+let countValue: count;
+countValue = "10";
+countValue = 10;
+// countValue = True; // Error: Type 'boolean' is not assignable to type 'count'.
+console.log(countValue);
+
+const n: [] = [];
+// n.push(1); // Error: Property 'push' does not exist on type '[]'.
+console.log(n);
