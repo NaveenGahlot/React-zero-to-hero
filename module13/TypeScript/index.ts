@@ -90,6 +90,22 @@ countValue = 10;
 // countValue = True; // Error: Type 'boolean' is not assignable to type 'count'.
 console.log(countValue);
 
+
+// Never Type
 const n: [] = [];
 // n.push(1); // Error: Property 'push' does not exist on type '[]'.
 console.log(n);
+
+// generics
+function gen<T>(a: T, b: T):T[]{
+    return [a, b];
+}
+console.log(gen<number>(1, 2)); // Output: [1, 2]
+console.log(gen<string>("Hello", "World")); // Output: ["Hello", "World"]
+
+// Any Type 
+function add1(a: any, b: any): any {
+    return a + b;
+}
+console.log(add1(5, 10)); // Output: 15
+console.log(add1("Hello, ", "World!")); // Output: "Hello, World!"
