@@ -5,6 +5,7 @@
 // import './App.css'
 
 import MyButton from "./Components/MyButton"
+import MYForm from "./Components/MYForm"
 
 function App() { 
 
@@ -15,6 +16,7 @@ function App() {
           alert("Button clicked!")
       }}/>
       <MyButton title="Click me!"/>
+      <MYForm />
     </>
   )
 }
